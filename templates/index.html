@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+    <title>Sistemas Web - Projeto2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+</head>
+
+<body>
+  <div class="py-5 text-center text-white align-items-center d-flex" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="mx-auto col-lg-8 col-md-10">
+          <h1 class="display-3 mb-4" style=""><b>Portal COVID</b></h1>
+          <p class="lead m-0">Escolha um tipo de pesquisa (Estado brasileiro ou País)<br>para obter os dados</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <p class="lead mt-4">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} mb-4" role="alert">
+                          {{ message }}
+                        </div>
+                    {% endfor %}
+                </p>
+              {% endif %}
+            {% endwith %}
+
+            <div class="mt-4">
+                <a href="/sair">
+                    <button class="btn btn-link">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
+                    </button>
+                </a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-5 text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+
+            <div class="col-md-6">
+              <h2 class="mb-4"><b>Estado brasileiro</b></h2>
+              <div class="btn-group">
+                <button class="btn dropdown-toggle btn-dark" data-toggle="dropdown">Selecione um Estado&nbsp;</button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/estados">Todos os Estados</a>
+                    <a class="dropdown-item" href="/estado?q=RO">RO - Rondônia</a>
+                    <a class="dropdown-item" href="/estado?q=AC">AC - Acre</a>
+                    <a class="dropdown-item" href="/estado?q=AM">AM - Amazonas</a>
+                    <a class="dropdown-item" href="/estado?q=RR">RR - Roraima</a>
+                    <a class="dropdown-item" href="/estado?q=PA">PA - Pará</a>
+                    <a class="dropdown-item" href="/estado?q=AP">AP - Amapá</a>
+                    <a class="dropdown-item" href="/estado?q=TO">TO - Tocantins</a>
+                    <a class="dropdown-item" href="/estado?q=MA">MA - Maranhão</a>
+                    <a class="dropdown-item" href="/estado?q=PI">PI - Piauí</a>
+                    <a class="dropdown-item" href="/estado?q=CE">CE - Ceará</a>
+                    <a class="dropdown-item" href="/estado?q=RN">RN - Rio Grande do Norte</a>
+                    <a class="dropdown-item" href="/estado?q=PB">PB - Paraíba</a>
+                    <a class="dropdown-item" href="/estado?q=PE">PE - Pernambuco</a>
+                    <a class="dropdown-item" href="/estado?q=AL">AL - Alagoas</a>
+                    <a class="dropdown-item" href="/estado?q=SE">SE - Sergipe</a>
+                    <a class="dropdown-item" href="/estado?q=BA">BA - Bahia</a>
+                    <a class="dropdown-item" href="/estado?q=MG">MG - Minas Gerais</a>
+                    <a class="dropdown-item" href="/estado?q=ES">ES - Espírito Santo</a>
+                    <a class="dropdown-item" href="/estado?q=RJ">RJ - Rio de Janeiro</a>
+                    <a class="dropdown-item" href="/estado?q=SP">SP - São Paulo</a>
+                    <a class="dropdown-item" href="/estado?q=PR">PR - Paraná</a>
+                    <a class="dropdown-item" href="/estado?q=SC">SC - Santa Catarina</a>
+                    <a class="dropdown-item" href="/estado?q=RS">RS - Rio Grande do Sul</a>
+                    <a class="dropdown-item" href="/estado?q=MS">MS - Mato Grosso do Sul</a>
+                    <a class="dropdown-item" href="/estado?q=MT">MT - Mato Grosso</a>
+                    <a class="dropdown-item" href="/estado?q=GO">GO - Goiás</a>
+                    <a class="dropdown-item" href="/estado?q=DF">DF - Distrito Federal</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <h2 class="mb-4"><b>País</b></h2>
+              <div class="btn-group">
+                  <a href="/paises">
+                    <button class="btn btn-dark">Todos os Países</button>
+                  </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-3 bg-dark text-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0">© 2021 UCL - Caio Souza (caiorss@ucl.br) e Savio Fonseca (saviofonseca@ucl.br)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

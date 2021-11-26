@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Sistemas Web - Projeto2</title>
+        <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+    </head>
+    <body>
+
+        <div class="py-5 text-center text-white align-items-center d-flex" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
+            <div class="container py-5">
+              <div class="row">
+                <div class="mx-auto col-12">
+                  <h1 class="display-3 mb-4" style=""><b>COVID por Países</b></h1>
+
+                    <a href="/">
+                        <button class="btn btn-dark">Voltar</button>
+                    </a>
+
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {%for x in range(0,194)%}
+                        <div class="col-md-3 col-sm-12 mb-5">
+                            <div class="card text-center p-3">
+
+                                <div class="card-body p-0 pb-4">
+                                    <div>
+                                        <h5 class="fw-bolder">{{info.data[x].country}}</h5>
+                                    </div>
+                                </div>
+
+                                <p class="m-0 mb-3">
+                                    <img src="https://w7.pngwing.com/pngs/85/416/png-transparent-round-red-and-white-cross-logo-illustration-medicine-health-care-euclidean-icon-red-cross-free-infographic-text-sign-thumbnail.png" height="30" width="30" alt="..." />
+                                    Número de casos:<br>
+                                    {{info.data[x].confirmed}}
+                                </p>
+
+                                <p class="m-0">
+                                    <img src="data:image/png;base64,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" height="30" width="30" alt="..." />
+                                    Número de mortes:<br>
+                                    {{info.data[x].deaths}}
+                                </p>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <div class="py-3 bg-dark text-light">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <p class="mb-0">© 2021 UCL - Caio Souza (caiorss@ucl.br) e Savio Fonseca (saviofonseca@ucl.br)</p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+    </body>
+</html>

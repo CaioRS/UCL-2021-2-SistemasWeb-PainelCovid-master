@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Sistemas Web - Projeto2</title>
+        <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+        <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    </head>
+    <body>
+        <div class="py-5 text-center text-white align-items-center d-flex" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
+            <div class="container py-5">
+              <div class="row">
+                <div class="mx-auto col-lg-12">
+                  <h1 class="display-3 mb-4" style=""><b>COVID por Estados</b></h1>
+                  <p class="lead m-0 mb-4">Ordenados por número de casos</p>
+
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle btn-dark" data-toggle="dropdown">Selecione um Estado&nbsp;</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/estados">Todos os Estados</a>
+                            <a class="dropdown-item" href="/estado?q=RO">RO - Rondônia</a>
+                            <a class="dropdown-item" href="/estado?q=AC">AC - Acre</a>
+                            <a class="dropdown-item" href="/estado?q=AM">AM - Amazonas</a>
+                            <a class="dropdown-item" href="/estado?q=RR">RR - Roraima</a>
+                            <a class="dropdown-item" href="/estado?q=PA">PA - Pará</a>
+                            <a class="dropdown-item" href="/estado?q=AP">AP - Amapá</a>
+                            <a class="dropdown-item" href="/estado?q=TO">TO - Tocantins</a>
+                            <a class="dropdown-item" href="/estado?q=MA">MA - Maranhão</a>
+                            <a class="dropdown-item" href="/estado?q=PI">PI - Piauí</a>
+                            <a class="dropdown-item" href="/estado?q=CE">CE - Ceará</a>
+                            <a class="dropdown-item" href="/estado?q=RN">RN - Rio Grande do Norte</a>
+                            <a class="dropdown-item" href="/estado?q=PB">PB - Paraíba</a>
+                            <a class="dropdown-item" href="/estado?q=PE">PE - Pernambuco</a>
+                            <a class="dropdown-item" href="/estado?q=AL">AL - Alagoas</a>
+                            <a class="dropdown-item" href="/estado?q=SE">SE - Sergipe</a>
+                            <a class="dropdown-item" href="/estado?q=BA">BA - Bahia</a>
+                            <a class="dropdown-item" href="/estado?q=MG">MG - Minas Gerais</a>
+                            <a class="dropdown-item" href="/estado?q=ES">ES - Espírito Santo</a>
+                            <a class="dropdown-item" href="/estado?q=RJ">RJ - Rio de Janeiro</a>
+                            <a class="dropdown-item" href="/estado?q=SP">SP - São Paulo</a>
+                            <a class="dropdown-item" href="/estado?q=PR">PR - Paraná</a>
+                            <a class="dropdown-item" href="/estado?q=SC">SC - Santa Catarina</a>
+                            <a class="dropdown-item" href="/estado?q=RS">RS - Rio Grande do Sul</a>
+                            <a class="dropdown-item" href="/estado?q=MS">MS - Mato Grosso do Sul</a>
+                            <a class="dropdown-item" href="/estado?q=MT">MT - Mato Grosso</a>
+                            <a class="dropdown-item" href="/estado?q=GO">GO - Goiás</a>
+                            <a class="dropdown-item" href="/estado?q=DF">DF - Distrito Federal</a>
+                        </div>
+                    </div>
+
+                    <a href="/">
+                        <button class="btn btn-dark">Voltar</button>
+                    </a>
+
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <section class="py-5">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+crossorigin=""/>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+crossorigin=""></script>
+
+<div id="map" style="height: 500px;"></div>
+
+<script type="text/javascript">
+
+	list = [
+        {
+          "-id": "BR-AC",
+          "-title": "Acre",
+          "-class": "land",
+          "-lat": -8.77,
+          "-long": -70.55
+        },
+        {
+          "-id": "BR-AL",
+          "-title": "Alagoas",
+          "-class": "land",
+          "-lat": -9.71,
+          "-long": -35.73,
+            "-cases": {{info.data[22].cases}},
+          "-death": {{info.data[22].deaths}},
+        },
+        {
+          "-id": "BR-AM",
+          "-title": "Amazonas",
+          "-class": "land",
+          "-lat": -3.07,
+          "-long": -61.66,
+            "-cases": {{info.data[15].cases}},
+          "-death": {{info.data[15].deaths}},
+        },
+        {
+          "-id": "BR-AP",
+          "-title": "Amapa",
+          "-class": "land",
+          "-lat": 1.41,
+          "-long": -51.77,
+            "-cases": {{info.data[25].cases}},
+          "-death": {{info.data[25].deaths}},
+        },
+        {
+          "-id": "BR-BA",
+          "-title": "Bahia",
+          "-class": "land",
+          "-lat": -12.96,
+          "-long": -38.51,
+          "-cases": {{info.data[5].cases}},
+          "-death": {{info.data[5].deaths}},
+        },
+        {
+          "-id": "BR-CE",
+          "-title": "Ceara¡",
+          "-class": "land",
+          "-lat": -3.71,
+          "-long": -38.54,
+          "-cases": {{info.data[7].cases}},
+          "-death": {{info.data[7].deaths}},
+        },
+        {
+          "-id": "BR-DF",
+          "-title": "Distrito Federal",
+          "-class": "land",
+          "-lat": -15.83,
+          "-long": -47.86,
+            "-cases": {{info.data[13].cases}},
+          "-death": {{info.data[13].deaths}},
+        },
+        {
+          "-id": "BR-ES",
+          "-title": "Espirito Santo",
+          "-class": "land",
+          "-lat": -19.19,
+          "-long": -40.34,
+            "-cases": {{info.data[10].cases}},
+          "-death": {{info.data[10].deaths}},
+        },
+        {
+          "-id": "BR-GO",
+          "-title": "Goias",
+          "-class": "land",
+          "-lat": -16.64,
+          "-long": -49.31,
+            "-cases": {{info.data[8].cases}},
+          "-death": {{info.data[8].deaths}},
+        },
+        {
+          "-id": "BR-MA",
+          "-title": "Maranhão",
+          "-class": "land",
+          "-lat": -2.55,
+          "-long": -44.30,
+            "-cases": {{info.data[18].cases}},
+          "-death": {{info.data[18].deaths}},
+        },
+        {
+          "-id": "BR-MG",
+          "-title": "Minas Gerais",
+          "-class": "land",
+          "-lat": -18.10,
+          "-long": -44.38,
+          "-cases": {{info.data[1].cases}},
+          "-death": {{info.data[1].deaths}},
+        },
+        {
+          "-id": "BR-MS",
+          "-title": "Mato Grosso do Sul",
+          "-class": "land",
+          "-lat": -20.51,
+          "-long": -54.54,
+            "-cases": {{info.data[17].cases}},
+          "-death": {{info.data[17].deaths}},
+        },
+        {
+          "-id": "BR-MT",
+          "-title": "Mato Grosso",
+          "-class": "land",
+          "-lat": -12.64,
+          "-long": -55.42,
+            "-cases": {{info.data[12].cases}},
+          "-death": {{info.data[12].deaths}},
+        },
+        {
+          "-id": "BR-PA",
+          "-title": "Para",
+          "-class": "land",
+          "-lat":  -5.53,
+          "-long": -52.29,
+            "-cases": {{info.data[11].cases}},
+          "-death": {{info.data[11].deaths}},
+        },
+        {
+          "-id": "BR-PB",
+          "-title": "Paraíba",
+          "-class": "land",
+          "-lat": -7.06,
+          "-long":  -35.55,
+            "-cases": {{info.data[14].cases}},
+          "-death": {{info.data[14].deaths}},
+        },
+        {
+          "-id": "BR-PE",
+          "-title": "Pernambuco",
+          "-class": "land",
+          "-lat": -8.28,
+          "-long": -35.07,
+            "-cases": {{info.data[9].cases}},
+          "-death": {{info.data[9].deaths}},
+        },
+        {
+          "-id": "BR-PI",
+          "-title": "Piauí",
+          "-class": "land",
+          "-lat": -8.28,
+          "-long": -43.68,
+            "-cases": {{info.data[19].cases}},
+          "-death": {{info.data[19].deaths}},
+        },
+        {
+          "-id": "BR-PR",
+          "-title": "Paraná",
+          "-class": "land",
+          "-lat": -24.89,
+          "-long": -51.55,
+          "-cases": {{info.data[2].cases}},
+          "-death": {{info.data[2].deaths}},
+        },
+        {
+          "-id": "BR-RJ",
+          "-title": "Rio de Janeiro",
+          "-class": "land",
+          "-lat": -22.84,
+          "-long": -43.15,
+          "-cases": {{info.data[4].cases}},
+          "-death": {{info.data[4].deaths}},
+        },
+        {
+          "-id": "BR-RN",
+          "-title": "Rio Grande do Norte",
+          "-class": "land",
+          "-lat": -5.22,
+          "-long":  -36.52,
+            "-cases": {{info.data[16].cases}},
+          "-death": {{info.data[16].deaths}},
+        },
+        {
+          "-id": "BR-RO",
+          "-title": "Rondônia",
+          "-class": "land",
+          "-lat": -11.22,
+          "-long": -62.80,
+            "-cases": {{info.data[21].cases}},
+          "-death": {{info.data[21].deaths}},
+        },
+        {
+          "-id": "BR-RR",
+          "-title": "Roraima",
+          "-class": "land",
+          "-lat": 1.89,
+          "-long":  -61.22,
+            "-cases": {{info.data[24].cases}},
+          "-death": {{info.data[24].deaths}},
+        },
+        {
+          "-id": "BR-RS",
+          "-title": "Rio Grande do Sul",
+          "-class": "land",
+          "-lat": -30.01,
+          "-long": -51.22,
+          "-cases": {{info.data[3].cases}},
+          "-death": {{info.data[3].deaths}},
+
+        },
+        {
+          "-id": "BR-SC",
+          "-title": "Santa Catarina",
+          "-class": "land",
+          "-lat": -27.33,
+          "-long": -49.44,
+          "-cases": {{info.data[6].cases}},
+          "-death": {{info.data[6].deaths}},
+        },
+        {
+          "-id": "BR-SE",
+          "-title": "Sergipe",
+          "-class": "land",
+          "-lat": -10.90,
+          "-long": -37.07,
+            "-cases": {{info.data[20].cases}},
+          "-death": {{info.data[20].deaths}},
+        },
+        {
+          "-id": "BR-SP",
+          "-title": "São Paulo",
+          "-class": "land",
+          "-lat": -23.55,
+          "-long": -46.64,
+          "-cases": {{info.data[0].cases}},
+          "-death": {{info.data[0].deaths}},
+
+
+        },
+        {
+          "-id": "BR-TO",
+          "-title": "Tocantins",
+          "-class": "land",
+          "-lat": -10.25,
+          "-long": -48.25,
+            "-cases": {{info.data[23].cases}},
+          "-death": {{info.data[23].deaths}},
+		}
+      ]
+
+	// The first parameter are the coordinates of the center of the map
+	// The second parameter is the zoom level
+	var map = L.map('map').setView([-15.7801, -47.9292], 4);
+
+	// {s}, {z}, {x} and {y} are placeholders for map tiles
+	// {x} and {y} are the x/y of where you are on the map
+	// {z} is the zoom level
+	// {s} is the subdomain of cartodb
+	var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+	});
+
+	// Now add the layer onto the map
+	map.addLayer(layer);
+	//L.marker([-23.5489, -46.6388]).addTo(map).bindPopup("<strong>SAO PAULO</strong> ").openPopup();
+	//L.marker([-8.77, -70.55]).addTo(map).bindPopup("<strong>ACRE</strong> ");
+
+	list.forEach(estado => {
+		L.marker([estado['-lat'], estado['-long']]).addTo(map).bindPopup("<strong>"+estado['-title']+ "<br>" + "Casos:" + estado['-cases'] + "<br>" + "Mortes:" + estado['-death'] + "</strong>");
+	});
+</script>
+
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center text-center">
+                {%for x in range(0,26)%}
+                    <div class="col-md-3 col-sm-12 mb-5">
+                        <div class="card p-3">
+
+                            <div class="card-body p-0 pb-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">{{info.data[x].state}}</h5>
+                                    {{info.data[x].uf}}
+                                </div>
+                            </div>
+
+                            <p class="m-0 mb-3">
+                                <img src="https://w7.pngwing.com/pngs/85/416/png-transparent-round-red-and-white-cross-logo-illustration-medicine-health-care-euclidean-icon-red-cross-free-infographic-text-sign-thumbnail.png" height="30" width="30" alt="..." />
+                                Número de casos:<br>
+                                {{info.data[x].cases}}
+                            </p>
+
+                            <p class="m-0">
+                                <img src="data:image/png;base64,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" height="30" width="30" alt="..." />
+                                Número de mortes:<br>
+                                {{info.data[x].deaths}}
+                            </p>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <div class="py-3 bg-dark text-light">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <p class="mb-0">© 2021 UCL - Caio Souza (caiorss@ucl.br) e Savio Fonseca (saviofonseca@ucl.br)</p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    </body>
+</html>
